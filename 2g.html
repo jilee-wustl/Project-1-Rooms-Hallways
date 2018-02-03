@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Rooms & Hallways </title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <div id="word-container">
+        <div class="word">
+            <span id="31">Cheese</span>
+        </div>
+        <div class="word">
+            <span id="32">Salmon</span>
+        </div>
+        <div class="word">
+            <span id="33">Maple Syrup</span>
+    </div>
+</div>
+
+    <script>
+        
+       $(document).ready(function(){
+         
+       function eventListener() {
+   
+            $('span').hover(function() {
+                $('body').css("background-image", "url(assets_gifs/"+$(this).attr('id')+".gif)");
+                $('span').css("visibility", "hidden");
+            });
+            
+            $('span').mouseleave(function() {
+                $('body').css("background-image", "");
+                $('span').css("visibility", "visible");
+            });
+            
+            $('#31').click(function() {
+                window.location.href = "1b.html";
+            });
+            
+            $('#32').click(function() {
+                window.location.href = "1a.html";
+            });
+            
+            $('#33').click(function() {
+                window.location.href = "1d.html";
+            });
+        }
+       
+        eventListener();
+        
+        });
+    </script>
+   
+</body>
+</html>
