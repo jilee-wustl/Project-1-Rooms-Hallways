@@ -1,56 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Rooms & Hallways </title>
+    <title> Mom's Test Kitchen </title>
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+    <script src="typed.min.js" type="text/javascript"></script>
 </head>
 
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <div id="diagonal-top"></div>
+    <div id="diagonal-bottom"></div>
+    
     <div id="word-container">
-        <div class="word">
-            <span id="1">Mix</span>
+        <div class="small-type">
+            <p class="instruction"> I'm so glad that I made dinnertime a priority with our family. </p>
+            <p class="instruction"> What a great time to bond! </p>
+            <p class="instruction"> But we're all getting tired of the same old dishes. </p>
+            <p class="instruction"> I found some great new recipes, and I think it's time to try them out! </p>
+            <p class="instruction"> It might take me a few tries, but I'll figure out these new recipes eventually. </p>
+            <p class="instruction"> So, get ready gang: Mom's got some new, delicious meals coming your way that I think you're going to love! </p>
+            <p class="instruction" id="last-p"> Just promise to do your own dishes and clean the kitchen after dinner, okay? </p>
+            
+            <span id="36" class="okay"> Enter Mom's Test Kitchen </span>
         </div>
-        <div class="word">
-            <span id="2">Fry</span>
-        </div>
-        <div class="word">
-            <span id="3">Pour</span>
     </div>
 </div>
 
     <script>
-        
        $(document).ready(function(){
-        
-        function eventListener() {
-            $('span').hover(function() {
-                $('body').css("background-image", "url(assets_gifs/"+$(this).attr('id')+".gif)");
-                $('span').css("visibility", "hidden");
-            });
-            
-            $('span').mouseleave(function() {
-                $('body').css("background-image", "");
-                $('span').css("visibility", "visible");
-            });
-            
-            $('#1').click(function() {
-                window.location.href = "2a.html";
-            });
-            
-            $('#2').click(function() {
-                window.location.href = "2b.html";
-            });
-            
-            $('#3').click(function() {
-                window.location.href = "2c.html";
-            });
-        }
-        
-        eventListener();
-        
+            function eventListener() {
+
+                $('span').hover(function() {
+                    $('body').css("background-image", "url(assets_gifs/"+$(this).attr('id')+".gif)");
+                    $('span').css("visibility", "hidden");
+                    $('.instruction').css("visibility", "hidden");
+                });
+                
+                $('span').mouseleave(function() {
+                    $('body').css("background-image", "");
+                    $('span').css("visibility", "visible");
+                    $('.instruction').css("visibility", "visible");
+                });
+                
+                $('#36').click(function() {
+                    window.location.href = "action1.html";
+                    return false;
+                });
+            }
+                        
+            var instruction = $(".instruction");
+            var okay = $(".okay");
+            var instIndex = -1;
+                
+            function showLines(){
+                ++instIndex;
+                instruction.eq(instIndex % instruction.length)
+                .animate({opacity:1}, 1000)
+                .delay(2000, showLines);
+                if (instIndex === 7) {
+                    okay.css("visibility", "visible");
+                    okay.animate({opacity:1}, 1000);
+                    eventListener();
+                }
+            }
+                        
+            showLines();
         });
     </script>
    

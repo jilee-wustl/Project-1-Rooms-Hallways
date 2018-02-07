@@ -8,14 +8,98 @@ html, body {
   background-repeat: repeat;
   background-size: cover;
   display: inline-flex;
+  overflow: hidden;
 }
 
 .word {
-  font-size: 10vw;
+  font-size: 18vh;
   height: 30%;
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 0px;
+}
+
+.okay {
+  margin-top: 40px;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 7vw;
+  height: 7vw;
+  color: white;
+  text-align: center;
+  padding: 0px;
+  margin-bottom: 0;
+  line-height: 1 !important;
+}
+
+.small-type {
+  font-size: 2.5vh;
+  color: white;
+  text-align: center;
+  padding: 0px;
+  line-height: 2;
+}
+
+#diagonal-top {
+  position: absolute;
+  left: -50px;
+  height: 100px;
+  top: -70px;
+  width: 300px;
+  -ms-transform: rotate(-30deg); /* IE 9 */
+  -webkit-transform: rotate(-30deg); /* Safari 3-8 */
+  transform: rotate(-30deg);
+  border-bottom: 1px solid white;
+  background-color: #191919;
+  z-index: 1;
+}
+
+#diagonal-bottom {
+  position: absolute;
+  right: -50px;
+  height: 100px;
+  bottom: -70px;
+  width: 300px;
+  -ms-transform: rotate(-30deg); /* IE 9 */
+  -webkit-transform: rotate(-30deg); /* Safari 3-8 */
+  transform: rotate(-30deg);
+  border-top: 1px solid white;
+  background-color: #191919;
+  z-index: 1;
+}
+
+#title:hover {
+  -webkit-text-stroke: 0.5px #ffffff !important;
+  -webkit-text-fill-color: transparent !important;
+  cursor: pointer;
+}
+
+#title {
+  position: absolute;
+  top: 35px;
+  width: 100%;
+  line-height: 1 !important;
+  -webkit-text-stroke: none !important;
+  -webkit-text-fill-color: white !important;
+}
+
+.instruction {
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5vw;
+}
+
+#last-p {
+  margin-bottom: 60px;
+}
+
+.dash {
+  font-size: 6vh;
+  height: 6vh;
+  padding: 0;
+  color: white;
+  text-align: center;
 }
 
 #word-container {
@@ -33,5 +117,4 @@ span:active, span:hover {
   visibility: visible !important;
 }
 
-span:
 
