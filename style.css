@@ -94,6 +94,10 @@ html, body {
   margin-bottom: 60px;
 }
 
+#volume {
+  margin-top: 60px;
+}
+
 .dash {
   font-size: 4vw;
   height: 4vw;
