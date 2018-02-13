@@ -4,63 +4,159 @@
     <title> Dad's Test Kitchen </title>
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+    <link href="slidebars/slidebars.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <div class="small-type" id="title"> Dad's Test Kitchen </div>
-    <div id="diagonal-top"></div>
-    <div id="diagonal-bottom"></div>
+    <script src="slidebars/slidebars.min.js"></script>
 
-    <div id="word-container">
-        <div class="word">
-            <span id="1">Mix</span>
-        </div>
-        
-        <div class="dash"> - </div>
-        
-        <div class="word">
-            <span id="2">Fry</span>
-        </div>
-        
-        <div class="dash"> - </div>
-        
-        <div class="word">
-            <span id="3">Pour</span>
+    <div class="background"></div>
+    
+    <div off-canvas="id-1 left reveal">
+            <div class="small-type-menu" id="title"> Dad's Test Kitchen </div>
+            <div class="small-type-menu" id="recipe-heading"> - Recipe - </div>
+            <div class="small-type-menu" id="saved-recipe"></div>
+    </div>
+    
+    <div canvas="container">
+        <button id="menu-button"> > recipe </button>
+        <div id="word-container">
+            <div class="word">
+                <span id="1">Mix</span>
+            </div>
+            
+            <div class="dash"> - </div>
+            
+            <div class="word">
+                <span id="2">Fry</span>
+            </div>
+            
+            <div class="dash"> - </div>
+            
+            <div class="word">
+                <span id="3">Pour</span>
+            </div>
         </div>
     </div>
+    
+    <video class="gif_video" loop preload="auto" id="vid">
+    <source type="video/webm" id="vid-src"></video>
     
     <script>
         
        $(document).ready(function(){
+
+        var close = false; 
+        //menu
+        var controller = new slidebars();
+        controller.init();
+        
+        // Toggle Slidebars
+        $( '#menu-button' ).on( 'click', function ( event ) {
+          // Stop default action and bubbling
+          
+          if (close) {
+            $(this).text("> recipe");
+            close = false;
+          }
+          
+          else {
+            $(this).text("< close");
+            close = true;
+          }
+          event.stopPropagation();
+          event.preventDefault();
+        
+          // Toggle the Slidebar with id 'id-1'
+          controller.toggle( 'id-1' );
+        } );
+        
+        var i;
+        
+        if (localStorage.getItem("recipe") !== null) {
+            var strRecipe = localStorage.getItem("recipe");
+            var recipeSplit = strRecipe.split(";");
+            
+            var finalRecipe = "";
+                        
+            for (i = 0; i < recipeSplit.length; i++) {
+                finalRecipe += (i+1) + ". " + recipeSplit[i] + "<br />";
+            }
+            
+            document.getElementById("saved-recipe").innerHTML = finalRecipe;
+        }
         
         function eventListener() {
             $('span').hover(function() {
-                $('body').css("background-image", "url(assets_gifs/"+$(this).attr('id')+".gif)");
                 $('span').css("visibility", "hidden");
-                
                 $('.dash').css("visibility", "hidden");
                 $('.small-type').css("visibility", "hidden");
+                $('video').css("display", "block");
+
+                var video = $("#vid")[0];
+                $("#vid-src").attr("src", "assets_mp4/"+$(this).attr('id')+".mp4");
+                video.load();
+                video.play();
             });
             
             $('span').mouseleave(function() {
-                $('body').css("background-image", "");
                 $('span').css("visibility", "visible");
-                
                 $('.dash').css("visibility", "visible");
                 $('.small-type').css("visibility", "visible");
+                $('video').css("display", "none");
             });
             
             $('#1').click(function() {
-                window.location.href = "mix.html";
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                
+                if (prevVal !== null) {
+                    vals.push(prevVal + '; Mix');
+                }
+                
+                else if (prevVal === null) {
+                    vals.push('Mix');//Add the text 'item1' to vals
+                }
+                
+                localStorage.setItem('recipe', vals.toString());
+
+                $( "body" ).load( "mix.html" );
             });
             
             $('#2').click(function() {
-                window.location.href = "fry.html";
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                
+                if (prevVal !== null) {
+                    vals.push(prevVal + '; Fry');
+                }
+                
+                else if (prevVal === null) {
+                    vals.push('Fry');//Add the text 'item1' to vals
+                }
+                
+                localStorage.setItem('recipe', vals.toString());
+
+                $( "body" ).load( "fry.html" );
             });
             
             $('#3').click(function() {
-                window.location.href = "pour.html";
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                
+                if (prevVal !== null) {
+                    vals.push(prevVal + '; Pour');
+                }
+                
+                else if (prevVal === null) {
+                    vals.push('Pour');//Add the text 'item1' to vals
+                }
+                
+                localStorage.setItem('recipe', vals.toString());
+
+                $( "body" ).load( "pour.html" );
             });
             
             $('#title').click(function() {

@@ -9,8 +9,7 @@
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <div class="small-type" id="title"> Dad's Test Kitchen </div>
-    <div id="diagonal-top"></div>
-    <div id="diagonal-bottom"></div>
+    <div class="background"></div> 
     
     <div id="word-container">
         <div class="word">
@@ -27,28 +26,37 @@
 
         <div class="word">
             <span id="42">Butter</span>
+        </div>
     </div>
-</div>
-
+    
+    <video class="gif_video" loop preload="auto" id="vid">
+    <source type="video/mp4" id="vid-src"></video>
+    
     <script>
         
        $(document).ready(function(){
         
         function eventListener() {
             $('span').hover(function() {
-                $('body').css("background-image", "url(assets_gifs/"+$(this).attr('id')+".gif)");
                 $('span').css("visibility", "hidden");
-                
                 $('.dash').css("visibility", "hidden");
                 $('.small-type').css("visibility", "hidden");
+                $('video').css("display", "block");
+
+                var video = $("#vid")[0];
+                $("#vid-src").attr("src", "assets_mp4/"+$(this).attr('id')+".mp4");
+                video.load();
+                video.play();
             });
             
             $('span').mouseleave(function() {
-                $('body').css("background-image", "");
                 $('span').css("visibility", "visible");
-                
                 $('.dash').css("visibility", "visible");
                 $('.small-type').css("visibility", "visible");
+                $('video').css("display", "none");
+
+                var video = $("#vid")[0];
+                video.pause();
             });
             
             $('#40').click(function() {

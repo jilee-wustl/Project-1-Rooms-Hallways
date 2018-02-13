@@ -2,13 +2,41 @@ html, body {
   width:  100vw;
   height: 100vh;
   margin: 0;
-  background-color: #191919;
   font-family: 'Nova Cut', cursive;
   background-position: center;
   background-repeat: repeat;
   background-size: cover;
   display: inline-flex;
   overflow: hidden;
+}
+
+.background {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+  background-color: #191919;
+}
+
+video {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  transform: translateX(-50%) translateY(-50%);
+  background-size: cover;
+  background-color: #191919;
 }
 
 .word {
@@ -40,47 +68,66 @@ html, body {
   line-height: 2;
 }
 
-#diagonal-top {
-  position: absolute;
-  left: -50px;
-  height: 100px;
-  top: -70px;
-  width: 300px;
-  -ms-transform: rotate(-30deg); /* IE 9 */
-  -webkit-transform: rotate(-30deg); /* Safari 3-8 */
-  transform: rotate(-30deg);
-  border-bottom: 1px solid white;
-  background-color: #191919;
-  z-index: 1;
-}
-
-#diagonal-bottom {
-  position: absolute;
-  right: -50px;
-  height: 100px;
-  bottom: -70px;
-  width: 300px;
-  -ms-transform: rotate(-30deg); /* IE 9 */
-  -webkit-transform: rotate(-30deg); /* Safari 3-8 */
-  transform: rotate(-30deg);
-  border-top: 1px solid white;
-  background-color: #191919;
-  z-index: 1;
+.small-type-menu {
+  font-size: 2.5vh;
+  color: white;
+  text-align: center;
+  padding: 0px;
+  line-height: 2;
 }
 
 #title:hover {
-  -webkit-text-stroke: 0.5px #ffffff !important;
+  -webkit-text-stroke: 0.5px #191919 !important;
   -webkit-text-fill-color: transparent !important;
   cursor: pointer;
 }
 
 #title {
   position: absolute;
-  top: 35px;
+  top: 50px;
   width: 100%;
   line-height: 1 !important;
   -webkit-text-stroke: none !important;
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: #191919 !important;
+}
+
+#recipe-heading {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  -webkit-text-fill-color: #191919 !important;
+}
+
+#saved-recipe {
+  padding: 50px;
+  position: absolute;
+  top: 100px;
+  color: #191919;
+  text-align: left !important;
+}
+
+
+#menu-button {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  font-size: 2.5vh;
+  color: white;
+  text-align: center;
+  padding: 0px;
+  -webkit-text-stroke: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: transparent;
+  border: none;
+  font-family: 'Nova Cut', cursive;
+}
+
+#menu-button:hover {
+  -webkit-text-stroke: 0.5px #ffffff !important;
+  -webkit-text-fill-color: transparent !important;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 }
 
 .instruction {
@@ -107,11 +154,13 @@ html, body {
 }
 
 #word-container {
-  width: 100%;
-  margin: auto 50px;
+  max-width: 100%;
+  /*margin: auto 50px;*/
 }
 
 span:hover {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
   -webkit-text-stroke: 1px #ffffff;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
@@ -121,4 +170,8 @@ span:active, span:hover {
   visibility: visible !important;
 }
 
+/* Hide Play button + controls on iOS */
+/*video::-webkit-media-controls {
+    display:none !important;
+}*/
 
