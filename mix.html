@@ -13,9 +13,11 @@
     <script src="slidebars/slidebars.min.js"></script>
     <div class="background"></div>
     
+  
     <div off-canvas="id-1 left reveal">
             <div class="small-type-menu" id="title"> Dad's Test Kitchen </div>
-            <div class="small-type-menu" id="saved-recipe"> - Recipe - </div>
+            <div class="small-type-menu" id="recipe-heading"> - Recipe - </div>
+            <div class="small-type-menu" id="saved-recipe"></div>
     </div>
 
     <div canvas="container">
@@ -99,10 +101,6 @@
                 $("#vid-src").attr("src", "assets_mp4/"+$(this).attr('id')+".mp4");
                 video.load();
                 video.play();
-                
-                // Store
-                //localStorage.setItem("recipe", $(this).attr('id'));
-                // Retrieve
             });
             
             $('span').mouseleave(function() {
@@ -116,26 +114,37 @@
             });
             
             $('#34').click(function() {
-                //window.location.href = "action2.html";
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
                     vals.push(prevVal + ' olive oil');
                     localStorage.setItem('recipe', vals.toString());
                 }
-                //vals.push('olive oil');//Add the text 'item1' to vals
-                //localStorage.setItem('recipe', JSON.stringify(vals));
                 
-                $( "body" ).load( "action1.html" );
+                $( "body" ).load( "action2.html" );
                 
             });
             
             $('#35').click(function() {
-                window.location.href = "action4.html";
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                if (prevVal !== null) {
+                    vals.push(prevVal + ' salad dressing');
+                    localStorage.setItem('recipe', vals.toString());
+                }
+                
+                $( "body" ).load( "action4.html" );
             });
             
             $('#36').click(function() {
-                window.location.href = "action3.html";
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                if (prevVal !== null) {
+                    vals.push(prevVal + ' salt');
+                    localStorage.setItem('recipe', vals.toString());
+                }
+                
+                $( "body" ).load( "action3.html" );
             });
             
             $('#title').click(function() {
