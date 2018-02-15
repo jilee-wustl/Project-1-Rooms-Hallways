@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> The Test Kitchen </title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+    <link href="slidebars/slidebars.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="slidebars/slidebars.min.js"></script>
+    <div class="background"></div>
+    <button id="title">The Test Kitchen</button> 
+
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
+    <div canvas="container" style="display: block !important; overflow-y: auto !important;">
+        <div id="word-container" style="width:100%">
+            <div class="about">
+                <h1> Archive </h1>
+                <p id="archive">
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <video class="gif_video" loop preload="auto" id="vid">
+    <source type="video/mp4" id="vid-src"></video>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA1AcETK9k1JdcXrlR9eQpZqLSGy-i2rJY",
+        authDomain: "the-test-kitchen.firebaseapp.com",
+        databaseURL: "https://the-test-kitchen.firebaseio.com",
+        projectId: "the-test-kitchen",
+        storageBucket: "",
+        messagingSenderId: "990236154720"
+      };
+      firebase.initializeApp(config);
+           
+        var ref = firebase.database().ref('/recipes/');
+
+        var keys = [];
+        var names = [];
+        var bodys = [];
+        var final = "";
+        
+        function displayArrayObjects(arrayObjects) {
+                var len = arrayObjects.length, text = "";
+        
+                for (var i = 0; i < len; i++) {
+                    var myObject = arrayObjects[i];
+                    console.log(myObject);
+                    for (var x in myObject) {
+                        text += ("<br/>" + myObject[x] + "<br/>");
+                    }
+                    text += "<br/>";
+                }
+        
+                document.getElementById("archive").innerHTML = text;
+            }
+            
+            ref.once('value',function(snap) {
+                snap.forEach(function(item) {
+                    var itemVal = item.val();
+                    keys.push(itemVal);
+                    var str = JSON.stringify(itemVal);
+                    final += str;
+                    //console.log(final);
+                });
+                for (i=0; i < keys.length; i++) {
+                    names.push(keys[i].body);
+                    bodys.push(keys[i].name);
+                }
+                 displayArrayObjects(keys);	
+            });
+            
+        
+    </script>
+    <script>
+    
+       $(document).ready(function(){       
+        var close = false; 
+        //menu
+        var controller = new slidebars();
+        controller.init();
+                        
+        if (localStorage.getItem("recipe") !== null) {
+            var strRecipe = localStorage.getItem("recipe");
+            var recipeSplit = strRecipe.split(";");
+            
+            var finalRecipe = "";
+            
+            var i;
+            
+            for (i = 0; i < recipeSplit.length; i++) {
+                console.log((i+1) + ". " + recipeSplit[i] + "<br />");
+
+                finalRecipe += (i+1) + ". " + recipeSplit[i] + "<br />";
+            }
+        }
+        // Toggle Slidebars
+        $( '#menu-button' ).on( 'click', function ( event ) {
+          // Stop default action and bubbling
+          
+          if (close) {
+            $(this).text("> recipe");
+            close = false;
+          }
+          
+          else {
+            $(this).text("< close");
+            close = true;
+          }
+          event.stopPropagation();
+          event.preventDefault();
+        
+          // Toggle the Slidebar with id 'id-1'
+          controller.toggle( 'id-1' );
+        } );
+    
+        function eventListener() {
+                        
+            $('span').hover(function() {
+                $('span').css("visibility", "hidden");
+                $('.dash').css("visibility", "hidden");
+                $('.small-type').css("visibility", "hidden");
+                $('video').css("display", "block");
+
+                var video = $("#vid")[0];
+                video.load();
+                video.play();
+            });
+            
+            $('span').mouseleave(function() {
+                $('span').css("visibility", "visible");
+                $('.dash').css("visibility", "visible");
+                $('.small-type').css("visibility", "visible");
+                $('video').css("display", "none");
+
+                var video = $("#vid")[0];
+                video.pause();
+            });
+            
+            $('#save').click(function() {
+                window.location.href = "archive.html";
+            });
+            
+            $('#title').click(function() {
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                $( "body" ).load( "archive.html" );
+                return false;
+            });
+        }
+        
+        eventListener();
+        
+        });
+    </script>
+   
+</body>
+</html>

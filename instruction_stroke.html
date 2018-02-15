@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> The Test Kitchen </title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+    <link href="slidebars/slidebars.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="slidebars/slidebars.min.js"></script>
+    <div class="background"></div>
+    <button id="title">The Test Kitchen</button> 
+    <div class="small-type-menu" id="recipe-heading">recipe</div>
+
+    <div off-canvas="id-1 left reveal" >
+            <div class="small-type-menu" id="saved-recipe"></div>
+    </div>
+
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
+    <div canvas="container">
+        <div id="word-container">
+            <div class="word">
+                <span id="34">Olive Oil</span>
+            </div>
+            
+            <div class="dash"> - </div>
+    
+            <div class="word">
+                <span id="35">Salad Dressing</span>
+            </div>
+            
+            <div class="dash"> - </div>
+    
+            <div class="word">
+                <span id="36">Salt</span>
+            </div>
+            
+            <video class="gif_video" loop preload="auto" id="vid">
+            <source type="video/mp4" id="vid-src"></video>
+        </div>
+    </div> 
+
+    <script>
+    
+       $(document).ready(function(){
+                
+        var close = false; 
+        //menu
+        var controller = new slidebars();
+        controller.init();
+                        
+        if (localStorage.getItem("recipe") !== null) {
+            var strRecipe = localStorage.getItem("recipe");
+            var recipeSplit = strRecipe.split(";");
+            
+            var finalRecipe = ""; 
+            
+            var i;
+            
+            for (i = 0; i < recipeSplit.length; i++) {
+                console.log((i+1) + ". " + recipeSplit[i] + "<br />");
+
+                finalRecipe += (i+1) + ". " + recipeSplit[i] + "<br />";
+            }
+            
+            document.getElementById("saved-recipe").innerHTML = finalRecipe;
+        }
+        // Toggle Slidebars
+        $( '#menu-button' ).on( 'click', function ( event ) {
+          // Stop default action and bubbling
+          
+          if (close) {
+            $(this).text("> recipe");
+            close = false;
+          }
+          
+          else {
+            $(this).text("< close");
+            close = true;
+          }
+          event.stopPropagation();
+          event.preventDefault();
+        
+          // Toggle the Slidebar with id 'id-1'
+          controller.toggle( 'id-1' );
+        } );
+    
+        function eventListener() {
+                        
+            $('span').hover(function() {
+                $('span').css("visibility", "hidden");
+                $('.dash').css("visibility", "hidden");
+                $('.small-type').css("visibility", "hidden");
+                $('video').css("display", "block");
+
+                var video = $("#vid")[0];
+                $("#vid-src").attr("src", "assets_mp4/"+$(this).attr('id')+".mp4");
+                video.load();
+                video.play();
+            });
+            
+            $('span').mouseleave(function() {
+                $('span').css("visibility", "visible");
+                $('.dash').css("visibility", "visible");
+                $('.small-type').css("visibility", "visible");
+                $('video').css("display", "none");
+
+                var video = $("#vid")[0];
+                video.pause();
+            });
+            
+            var instruction = ["until well mixed.","in baking dish.","in large bowl.","in medium bowl.","with fork until blended."];
+            var random = Math.floor(Math.random() * (5));
+            
+            $('#34').click(function() {
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                if (prevVal !== null) {
+                    vals.push(prevVal + ' olive oil' + instruction[random]);
+                    localStorage.setItem('recipe', vals.toString());
+                }
+                
+                $( "body" ).load( "action2.html" );
+                
+            });
+            
+            $('#35').click(function() {
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                if (prevVal !== null) {
+                    vals.push(prevVal + ' salad dressing' + instruction[random]);
+                    localStorage.setItem('recipe', vals.toString());
+                }
+                
+                $( "body" ).load( "action4.html" );
+            });
+            
+            $('#36').click(function() {
+                var vals = [];
+                var prevVal = localStorage.getItem('recipe');
+                if (prevVal !== null) {
+                    vals.push(prevVal + ' salt' + instruction[random]);
+                    localStorage.setItem('recipe', vals.toString());
+                }
+                
+                $( "body" ).load( "action3.html" );
+            });
+            
+            $('#title').click(function() {
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
+            });
+        }
+        
+        eventListener();
+        
+        });
+    </script>
+   
+</body>
+</html>

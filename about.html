@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> The Test Kitchen </title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+    <link href="slidebars/slidebars.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="slidebars/slidebars.min.js"></script>
+    <div class="background"></div>
+    <button id="title">The Test Kitchen</button> 
+    
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
+    <div canvas="container" style="display: block !important; overflow-y: auto !important;">
+        <div id="word-container">
+            <div class="about">
+                <h1> About </h1>
+                <p class="text">
+                    'The Test Kitchen' is a space where you can develop your own recipes, save and share your recipes:
+                    the weirdest and strangest recipes that you've probably never heard of.
+                    Enjoy the craft of developing new recipes. Be creative!
+                </p>
+                <br><br>
+                <h1> Structure </h1>
+                <div id="structure-img"><img src="1.jpg"></div>
+                <br> <br>
+                <h1>Project Description - Rooms & Hallways</h1>
+                <p class="text">
+                Although it is now ubiquitous, the hyperlink is the most radical feature of the internet.
+                You will consider how to use the hyperlink for creative ends.
+                The ability to hyperlink web pages together allows for all kinds of complex new readings.
+                Select a visual composition or a text.
+                Determine a way to break your composition down into meaningful 'rooms'
+                (paragraphs, sentences, words or blocks of imagery, etc...).
+                Now weave these distinct units together using many html pages and hyperlinks 'hallways' to create a network.
+                Consider allowing for user choice, branching structures, loops, etc.
+                The linking does not have to follow a linear sequence.
+                See if you can produce new readings and new ways of traversing your composition.
+                </p>
+                <br><br>
+                <p class="text">
+                Project for 'Interaction: Non-Linear Narrative' course at
+                Sam Fox School of Design & Visual Arts, Washington Univ. in St. Louis, Spring 2018
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <video class="gif_video" loop preload="auto" id="vid">
+    <source type="video/mp4" id="vid-src"></video>
+    
+    <script>
+    
+       $(document).ready(function(){
+                
+        var close = false; 
+        //menu
+        var controller = new slidebars();
+        controller.init();
+                        
+        if (localStorage.getItem("recipe") !== null) {
+            var strRecipe = localStorage.getItem("recipe");
+            var recipeSplit = strRecipe.split(";");
+            
+            var finalRecipe = "";
+            
+            var i;
+            
+            for (i = 0; i < recipeSplit.length; i++) {
+                console.log((i+1) + ". " + recipeSplit[i] + "<br />");
+
+                finalRecipe += (i+1) + ". " + recipeSplit[i] + "<br />";
+            }
+            
+        }
+        // Toggle Slidebars
+        $( '#menu-button' ).on( 'click', function ( event ) {
+          // Stop default action and bubbling
+          
+          if (close) {
+            $(this).text("> recipe");
+            close = false;
+          }
+          
+          else {
+            $(this).text("< close");
+            close = true;
+          }
+          event.stopPropagation();
+          event.preventDefault();
+        
+          // Toggle the Slidebar with id 'id-1'
+          controller.toggle( 'id-1' );
+        } );
+    
+        function eventListener() {
+                        
+            $('span').hover(function() {
+                $('span').css("visibility", "hidden");
+                $('.dash').css("visibility", "hidden");
+                $('.small-type').css("visibility", "hidden");
+                $('video').css("display", "block");
+
+                var video = $("#vid")[0];
+                $("#vid-src").attr("src", "assets_mp4/serve.mp4");
+                video.load();
+                video.play();
+            });
+            
+            $('span').mouseleave(function() {
+                $('span').css("visibility", "visible");
+                $('.dash').css("visibility", "visible");
+                $('.small-type').css("visibility", "visible");
+                $('video').css("display", "none");
+
+                var video = $("#vid")[0];
+                video.pause();
+            });
+            
+            $('#title').click(function() {
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                $( "body" ).load( "about.html" );  
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
+            });
+            
+        }
+        
+        eventListener();
+        
+        });
+    </script>
+</body>
+</html>

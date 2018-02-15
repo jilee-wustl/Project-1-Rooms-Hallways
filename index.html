@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Dad's Test Kitchen </title>
+    <title> The Test Kitchen </title>
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
     <link href="slidebars/slidebars.css" rel="stylesheet">
@@ -11,21 +11,15 @@
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="slidebars/slidebars.min.js"></script>
-    
+    <button id="title">The Test Kitchen</button> 
+
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
     <div class="background"></div> 
     <div canvas="container">
         <div id="word-container">
             <div class="small-type">
-                <p class="instruction"> I'm so glad that I made dinnertime a priority with our family. </p>
-                <p class="instruction"> What a great time to bond! </p>
-                <p class="instruction"> But we're all getting tired of Mom's same old dishes. </p>
-                <p class="instruction"> I found some great new recipes, and I think it's time to try them out! </p>
-                <p class="instruction"> It might take me a few tries, but I'll figure out these new recipes eventually. </p>
-                <p class="instruction"> So, get ready gang: Dad's got some new, delicious meals coming your way that I think you're going to love! </p>
-                <p class="instruction" id="last-p"> Just promise to do your own dishes and clean the kitchen after dinner, okay? </p>
-                
-                <span id="36" class="okay" value="Enter"> Enter Dad's Test Kitchen </span>
-                <p class="instruction" id="volume"> ( Be sure to turn up your volume for the full experience. ) </p>
+                <span id="36" class="okay" value="Enter"> Enter The Test Kitchen </span>
             </div>
             </div>
         </div>
@@ -72,23 +66,29 @@
                 });
             }
                         
-            var instruction = $(".instruction");
             var okay = $(".okay");
-            var instIndex = -1;
                 
             function showLines(){
-                ++instIndex;
-                instruction.eq(instIndex % instruction.length)
-                .animate({opacity:1}, 1000)
-                .delay(2000, showLines);
-                if (instIndex === 7) {
                     okay.css("visibility", "visible");
                     okay.animate({opacity:1}, 1000);
                     eventListener();
-                }
             }
                         
             showLines();
+            
+            $('#title').click(function() {
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
+            });
         });
     </script>
    

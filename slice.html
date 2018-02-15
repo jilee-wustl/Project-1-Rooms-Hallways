@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Dad's Test Kitchen </title>
+    <title> The Test Kitchen </title>
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
     <link href="slidebars/slidebars.css" rel="stylesheet">
@@ -12,16 +12,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="slidebars/slidebars.min.js"></script>
     <div class="background"></div>
-    
-  
-    <div off-canvas="id-1 left reveal">
-            <div class="small-type-menu" id="title"> Dad's Test Kitchen </div>
-            <div class="small-type-menu" id="recipe-heading"> - Recipe - </div>
+    <button id="title">The Test Kitchen</button> 
+    <div class="small-type-menu" id="recipe-heading">recipe</div>
+
+    <div off-canvas="id-1 left reveal" >
             <div class="small-type-menu" id="saved-recipe"></div>
     </div>
 
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
     <div canvas="container">
-        <button id="menu-button"> > recipe </button>
         <div id="word-container">
             <div class="word">
                 <span id="40">Avocado</span>
@@ -57,7 +57,7 @@
             var strRecipe = localStorage.getItem("recipe");
             var recipeSplit = strRecipe.split(";");
             
-            var finalRecipe = "";
+            var finalRecipe = ""; 
             
             var i;
             
@@ -113,11 +113,14 @@
                 video.pause();
             });
             
+            var instruction = ["into quarters.","into quarter-inch cubes.","into sections.","into evenly sized pieces.","into small pieces."];
+            var random = Math.floor(Math.random() * (5));
+            
             $('#40').click(function() {
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
-                    vals.push(prevVal + ' avocado');
+                    vals.push(prevVal + ' avocado ' +instruction[random]);
                     localStorage.setItem('recipe', vals.toString());
                 }
                 
@@ -129,7 +132,7 @@
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
-                    vals.push(prevVal + ' cake');
+                    vals.push(prevVal + ' cake '+ instruction[random]);
                     localStorage.setItem('recipe', vals.toString());
                 }
                 
@@ -140,7 +143,7 @@
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
-                    vals.push(prevVal + ' butter');
+                    vals.push(prevVal + ' butter '+ instruction[random] );
                     localStorage.setItem('recipe', vals.toString());
                 }
                 
@@ -148,7 +151,17 @@
             });
             
             $('#title').click(function() {
-                window.location.href = "index.html";
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
             });
         }
         

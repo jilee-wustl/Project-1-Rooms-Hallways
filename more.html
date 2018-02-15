@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Dad's Test Kitchen </title>
+    <title> The Test Kitchen </title>
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
     <link href="slidebars/slidebars.css" rel="stylesheet">
@@ -12,19 +12,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="slidebars/slidebars.min.js"></script>
     <div class="background"></div>
-    
-  
-    <div off-canvas="id-1 left reveal">
-            <div class="small-type-menu" id="title"> Dad's Test Kitchen </div>
-            <div class="small-type-menu" id="recipe-heading"> - Recipe - </div>
+    <button id="title">The Test Kitchen</button> 
+    <div class="small-type-menu" id="recipe-heading">recipe</div>
+
+    <div off-canvas="id-1 left reveal" >
             <div class="small-type-menu" id="saved-recipe"></div>
     </div>
 
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
     <div canvas="container">
-        <button id="menu-button"> > recipe </button> 
         <div id="word-container">
             <div class="word">
-                <span id="35">Cook more?</span>
+                <span id="35">Save recipe?</span>
             </div>
         </div>
     </div>
@@ -100,15 +100,22 @@
                 video.pause();
             });
             
-            $('#35').click(function() {
-                localStorage.removeItem('recipe');
-                
-                $( "body" ).load( "action2.html" );
-                
+            $('#35').click(function() {                
+                window.location.href = "save.html";
             });
             
             $('#title').click(function() {
-                window.location.href = "index.html";
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
             });
         }
         

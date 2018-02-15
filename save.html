@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> The Test Kitchen </title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
+    <link href="slidebars/slidebars.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="slidebars/slidebars.min.js"></script>
+    <div class="background"></div>
+    <button id="title">The Test Kitchen</button> 
+    <div class="small-type-menu" id="recipe-heading">recipe</div>
+
+    <div off-canvas="id-1 left reveal" >
+            <div class="small-type-menu" id="saved-recipe"></div>
+    </div>
+
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
+    <div canvas="container">
+        <div id="word-container">
+            <div class="word" id="word" style="font-size: 7vw;">
+                <span id="35" style="margin-bottom: 75px;">Name Your Recipe: </span>
+                <br>
+                <input type="text" id="setName" style="margin-bottom: 100px;">
+                <br>
+                <span id="save">Save</span>
+            </div>
+        </div>
+    </div>
+    
+    <video class="gif_video" loop preload="auto" id="vid">
+    <source type="video/mp4" id="vid-src"></video>
+    <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+
+    <script>
+    
+       $(document).ready(function(){
+                
+        var close = false; 
+        //menu
+        var controller = new slidebars();
+        controller.init();
+        var recipeBody = "";               
+        if (localStorage.getItem("recipe") !== null) {
+            var strRecipe = localStorage.getItem("recipe");
+            var recipeSplit = strRecipe.split(";");
+            
+            var finalRecipe = "";
+            
+            var i;
+            
+            for (i = 0; i < recipeSplit.length; i++) {
+                console.log((i+1) + ". " + recipeSplit[i] + "<br />");
+
+                finalRecipe += (i+1) + ". " + recipeSplit[i] + "<br />";
+            }
+            
+            document.getElementById("saved-recipe").innerHTML = finalRecipe;
+            recipeBody = finalRecipe;
+        }
+        // Toggle Slidebars
+        $( '#menu-button' ).on( 'click', function ( event ) {
+          // Stop default action and bubbling
+          
+          if (close) {
+            $(this).text("> recipe");
+            close = false;
+          }
+          
+          else {
+            $(this).text("< close");
+            close = true;
+          }
+          event.stopPropagation();
+          event.preventDefault();
+        
+          // Toggle the Slidebar with id 'id-1'
+          controller.toggle( 'id-1' );
+        } );
+    
+    var config = {
+        apiKey: "AIzaSyA1AcETK9k1JdcXrlR9eQpZqLSGy-i2rJY",
+        authDomain: "the-test-kitchen.firebaseapp.com",
+        databaseURL: "https://the-test-kitchen.firebaseio.com",
+        projectId: "the-test-kitchen",
+        storageBucket: "",
+        messagingSenderId: "990236154720"
+      };
+      firebase.initializeApp(config);
+           
+     var recipeName = "";
+     
+     function writeNewPost(recipeName, body) {
+      // A post entry.
+      var postData = {
+        recipeA: recipeName,
+        recipeBody: body
+      };
+    
+      // Get a key for a new Post.
+      var newPostKey = firebase.database().ref().child('recipes').push().key;
+    
+      // Write the new post's data simultaneously in the posts list and the user's post list.
+      var updates = {};
+      updates['/recipes/' + newPostKey] = postData;
+    
+      return firebase.database().ref().update(updates);
+        }
+        
+        function eventListener() {
+            
+            $('#save').click(function() {
+                localStorage.removeItem('recipe');
+                recipeName = "~ " + $("#setName").val() + " ~";
+                writeNewPost(recipeName, recipeBody);
+                document.getElementById("word").innerHTML = "Recipe Saved! <br> Redirecting in 3 seconds...";
+                
+                window.setTimeout(function(){
+                    window.location.href = "archive.html";
+                }, 3000);
+            });
+            
+            $("#setName").on("keydown",function search(e) {
+                if(e.keyCode == 13) {
+                    localStorage.removeItem('recipe');
+                    recipeName = "~ " + $("#setName").val() + " ~";
+                    
+                    writeNewPost(recipeName, recipeBody);
+                    document.getElementById("word").innerHTML = "Recipe Saved! <br> Redirecting in 3 seconds...";
+                    
+                    window.setTimeout(function(){
+                        window.location.href = "archive.html";
+                    }, 3000);
+                }
+            });
+            
+            $('#title').click(function() {
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
+            });
+
+        }
+        
+        eventListener();
+        
+        });
+    </script>
+   
+</body>
+</html>

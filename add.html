@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Dad's Test Kitchen </title>
+    <title> The Test Kitchen </title>
     <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nova+Cut" rel="stylesheet">
     <link href="slidebars/slidebars.css" rel="stylesheet">
@@ -13,14 +13,16 @@
     <script src="slidebars/slidebars.min.js"></script>
     <div class="background"></div>
     
-    <div off-canvas="id-1 left reveal">
-            <div class="small-type-menu" id="title"> Dad's Test Kitchen </div>
-            <div class="small-type-menu" id="recipe-heading"> - Recipe - </div>
+    <button id="title">The Test Kitchen</button> 
+    <div class="small-type-menu" id="recipe-heading">recipe</div>
+
+    <div off-canvas="id-1 left reveal" >
             <div class="small-type-menu" id="saved-recipe"></div>
     </div>
 
+    <button id="about-button"> about </button>
+    <button id="archive-button"> archive </button>
     <div canvas="container">
-        <button id="menu-button"> > recipe </button>
         
         <div id="word-container">
             <div class="word">
@@ -57,14 +59,14 @@
             var strRecipe = localStorage.getItem("recipe");
             var recipeSplit = strRecipe.split(";");
             
-            var finalRecipe = "";
+            var finalRecipe = ""; 
             
             var i;
             
-            for (i = 0; i < recipeSplit.length; i++) {
-                console.log((i+1) + ". " + recipeSplit[i] + "<br />");
-
+            for (i = 0; i < recipeSplit.length; i++) {                
                 finalRecipe += (i+1) + ". " + recipeSplit[i] + "<br />";
+                
+                console.log(finalRecipe);
             }
             
             document.getElementById("saved-recipe").innerHTML = finalRecipe;
@@ -113,11 +115,14 @@
                 video.pause();
             });
             
+            var instruction = ["to a large bowl.","if you like.","if necessary.","along with a little salt.","as needed."];
+            var random = Math.floor(Math.random() * (5));
+            
             $('#46').click(function() {
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
-                    vals.push(prevVal + ' maple syrup');
+                    vals.push(prevVal + ' maple syrup ' + instruction[random]);
                     localStorage.setItem('recipe', vals.toString());
                 }
                 
@@ -129,7 +134,7 @@
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
-                    vals.push(prevVal + ' parsley');
+                    vals.push(prevVal + ' parsley ' +instruction[random]);
                     localStorage.setItem('recipe', vals.toString());
                 }
                 
@@ -140,7 +145,7 @@
                 var vals = [];
                 var prevVal = localStorage.getItem('recipe');
                 if (prevVal !== null) {
-                    vals.push(prevVal + ' sprinkles');
+                    vals.push(prevVal + ' sprinkles ' + instruction[random]);
                     localStorage.setItem('recipe', vals.toString());
                 }
                 
@@ -148,7 +153,17 @@
             });
             
             $('#title').click(function() {
-                window.location.href = "index.html";
+                $( "body" ).load( "index.html" );
+            });
+            
+            $('#about-button').click(function() {
+                window.open("about.html");   
+                return false;
+            });
+            
+            $('#archive-button').click(function() {
+                window.open("archive.html");   
+                return false;
             });
         }
         

@@ -58,13 +58,14 @@ html, body {
  */
 
 [off-canvas] {
-	display: none;
+	display: block;
 	position: fixed;
 	overflow: hidden;
 	overflow-y: auto;
-	background-color: white; /* Basic background color, overwrite this in your own css. */
-	color: #191919; /* Basic colors, overwrite this in your own css. */
+	background-color: transparent; /* Basic background color, overwrite this in your own css. */
+	color: #212020; /* Basic colors, overwrite this in your own css. */
 	-webkit-overflow-scrolling: touch; /* Enables momentum scrolling on iOS devices, may be removed by setting to 'auto' in your own CSS. */
+	z-index: 9999999;
 }
 
 [off-canvas*=top] {
@@ -87,14 +88,14 @@ html, body {
 }
 
 [off-canvas*=left] {
-	width: 50%;
-	height: 100%;
-	top: 0;
+	width: 20%;
+	height: 75%;
+	top: 150px;
 	left: 0;
 }
 
 [off-canvas*=reveal] {
-	z-index: 0;
+	z-index: 99999;
 }
 
 [off-canvas*=push] {
